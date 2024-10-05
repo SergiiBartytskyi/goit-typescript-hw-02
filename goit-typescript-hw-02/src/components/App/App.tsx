@@ -7,19 +7,20 @@ import LoadMoreBtn from "../LoadMoreBtn/LoadMoreBtn";
 import ImageModal from "../ImageModal/ImageModal";
 import { fetchPicturesWithQuery } from "../../unsplash-api";
 import { IoArrowUpCircleSharp } from "react-icons/io5";
+import { Image, IPicture } from "./App.types";
 import css from "./App.module.css";
 
 const App = () => {
-  const [pictures, setPictures] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
-  const [page, setPage] = useState(1);
-  const [query, setQuery] = useState("");
-  const [totalPages, setTotalPages] = useState(0);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedImage, setSelectedImage] = useState(null);
-  const lastPictureRef = useRef(null);
-  const searchBarRef = useRef(null);
+  const [pictures, setPictures] = useState<IPicture[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<boolean>(false);
+  const [page, setPage] = useState<number>(1);
+  const [query, setQuery] = useState<string>("");
+  const [totalPages, setTotalPages] = useState<number>(0);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [selectedImage, setSelectedImage] = useState<Image | null>(null);
+  const lastPictureRef = useRef<HTMLLIElement | null>(null);
+  const headerRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     if (!loading && lastPictureRef.current) {
@@ -27,7 +28,7 @@ const App = () => {
     }
   }, [pictures, loading]);
 
-  const handleSearch = async (newQuery) => {
+  const handleSearch = async (newQuery: string) => {
     try {
       setPictures([]);
       setError(false);
@@ -58,7 +59,7 @@ const App = () => {
     }
   };
 
-  const openModal = (imageData) => {
+  const openModal = (imageData: Image) => {
     setSelectedImage(imageData);
     setIsModalOpen(true);
   };
@@ -69,8 +70,8 @@ const App = () => {
   };
 
   const scrollToTop = () => {
-    if (searchBarRef.current) {
-      searchBarRef.current.scrollIntoView({ behavior: "smooth" });
+    if (headerRef.current) {
+      headerRef.current.scrollIntoView({ behavior: "smooth" });
     }
   };
 
@@ -79,7 +80,7 @@ const App = () => {
 
   return (
     <div className={css.container}>
-      <SearchBar onSearch={handleSearch} ref={searchBarRef} />
+      <SearchBar onSearch={handleSearch} ref={headerRef} />
       {pictures.length > 0 && (
         <ImageGallery
           items={pictures}
