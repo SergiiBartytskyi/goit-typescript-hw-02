@@ -1,4 +1,5 @@
 import axios from "axios";
+import { IFetchResponse } from "./unsplash-api.types";
 
 axios.defaults.baseURL = "https://api.unsplash.com/";
 
@@ -10,10 +11,13 @@ const instance = axios.create({
   },
 });
 
-export const fetchPicturesWithQuery = async (query, page = 1) => {
+export const fetchPicturesWithQuery = async (
+  query: string,
+  page: number = 1
+): Promise<IFetchResponse> => {
   const response = await instance.get(`/search/photos`, {
     params: {
-      query: query,
+      query,
       orientation: "landscape",
       page,
       per_page: 20,

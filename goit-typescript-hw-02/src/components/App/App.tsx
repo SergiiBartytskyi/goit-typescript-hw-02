@@ -5,7 +5,7 @@ import Loader from "../Loader/Loader";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
 import LoadMoreBtn from "../LoadMoreBtn/LoadMoreBtn";
 import ImageModal from "../ImageModal/ImageModal";
-import { fetchPicturesWithQuery } from "../../unsplash-api";
+import { fetchPicturesWithQuery } from "../../api/unsplash-api";
 import { IoArrowUpCircleSharp } from "react-icons/io5";
 import { Image, IPicture } from "./App.types";
 import css from "./App.module.css";
